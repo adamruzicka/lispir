@@ -15,8 +15,14 @@ module Lispir
           end
           ret
         when 'define'
-          key, value = rest
-          env[key.source] = value.evaluate(env)
+          key, *value = rest
+          if key.is_a? Value::List # Lambda shorthand
+            key, *args = key.source
+            args = Value::List.new(args)
+            env[key.source] = Value::Lambda.new(value, env.dup, args)
+          else
+            env[key.source] = value.first.evaluate(env)
+          end
         when 'eq'
           a, b = rest.map { |expr| expr.evaluate(env) }
           a == b

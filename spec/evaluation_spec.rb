@@ -43,6 +43,15 @@ module Lispir
         value = Lispir.evaluate_expression('(begin (define x (+ 3 4)) x)')
         expect(value).to eq(7)
       end
+
+      it 'can be used as a lambda shorthand' do
+        value = Lispir.evaluate_body('
+          (define (inc x) (+ x 1))
+          (define (add2 x) (inc (inc x)))
+          (add2 5)
+        ')
+        expect(value).to eq(7)
+      end
     end
 
     describe 'eq' do

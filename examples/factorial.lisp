@@ -1,18 +1,15 @@
-(define sub (lambda (x) (+ x -1)))
+(define (sub x) (+ x -1))
 
-(define mul
-    (lambda (x y)
-      (define inner-mul
-          (lambda (current step n)
-            (if (eq n 1)
-                current
-                (inner-mul (+ current step) step (sub n)))))
-      (inner-mul x x y)))
+(define (mul x y)
+  (define (inner-mul current n)
+    (if (eq n 1)
+        current
+        (inner-mul (+ current x) (sub n))))
+  (inner-mul x y))
 
-(define factorial
-    (lambda (x)
-      (if (eq x 0)
-          1
-          (mul x (factorial (sub x))))))
+(define (factorial x)
+  (if (eq x 0)
+      1
+      (mul x (factorial (sub x)))))
 
 (print (factorial 5))
