@@ -17,6 +17,9 @@ module Lispir
         when 'define'
           key, value = rest
           env[key.source] = value.evaluate(env)
+        when 'eq'
+          a, b = rest.map { |expr| expr.evaluate(env) }
+          a == b
         else
           raise "Cannot apply '#{head}'"
         end

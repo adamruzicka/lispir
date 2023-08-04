@@ -6,7 +6,8 @@ module Lispir
     BUILTINS = [
       '+',
       'begin',
-      'define'
+      'define',
+      'eq'
     ]
 
     class Atom < Abstract

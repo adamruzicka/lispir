@@ -44,5 +44,15 @@ module Lispir
         expect(value).to eq(7)
       end
     end
+
+    describe 'eq' do
+      it 'compares two values' do
+        value = Lispir.evaluate_expression('(eq 1 2)')
+        expect(value).to eq(false)
+
+        value = Lispir.evaluate_expression('(eq 1 1)')
+        expect(value).to eq(true)
+      end
+    end
   end
 end
