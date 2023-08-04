@@ -2,13 +2,12 @@
 
 (define mul
     (lambda (x y)
-      (begin
-       (define inner-mul
-           (lambda (current step n)
-             (if (eq n 1)
-                 current
-                 (inner-mul (+ current step) step (sub n)))))
-       (inner-mul x x y))))
+      (define inner-mul
+          (lambda (current step n)
+            (if (eq n 1)
+                current
+                (inner-mul (+ current step) step (sub n)))))
+      (inner-mul x x y)))
 
 (define factorial
     (lambda (x)

@@ -101,7 +101,7 @@ module Lispir
                                  Value::Number.new(1)
                                ])
         bindings = Value::List.new([Value::Atom.new('x')])
-        expect(value).to eq(Value::Lambda.new(body, env, bindings))
+        expect(value).to eq(Value::Lambda.new([body], env, bindings))
       end
 
       it 'can be evaluated directly' do
@@ -147,6 +147,12 @@ module Lispir
         EXP
 
         value = Lispir.evaluate_body(exp)
+        expect(value).to eq(3)
+
+        value = Lispir.evaluate_body('
+          (define x (lambda () 1 2 3))
+          (x)
+        ')
         expect(value).to eq(3)
       end
     end

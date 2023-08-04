@@ -33,7 +33,7 @@ module Lispir
           end
           body.evaluate(local_env)
         when 'lambda'
-          bindings, body = rest
+          bindings, *body = rest
           Value::Lambda.new(body, env.dup, bindings)
         when Value::Lambda
           head.evaluate rest, env

@@ -2,10 +2,14 @@ module Lispir
   module Value
     class Lambda < Abstract
       attr_reader :env, :body, :bindings
-      def initialize(body, local_env, bindings)
+      def initialize(body_forms, local_env, bindings)
         @env = local_env
         @bindings = bindings
-        @body = body
+        @body = if body_forms.length > 1
+                  Value::List.new([Value::Atom.new('begin')] + body_forms)
+                else
+                  body_forms.first
+                end
       end
 
       def evaluate(args, env = {})
