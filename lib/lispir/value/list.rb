@@ -8,6 +8,12 @@ module Lispir
         case head
         when '+'
           rest.map { |arg| arg.evaluate(env) }.reduce(:+)
+        when 'begin'
+          ret = nil
+          rest.each do |expr|
+            ret = expr.evaluate(env)
+          end
+          ret
         else
           raise "Cannot apply '#{head}'"
         end

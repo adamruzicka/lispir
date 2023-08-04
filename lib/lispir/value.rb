@@ -3,7 +3,10 @@ module Lispir
     require 'lispir/value/abstract'
     require 'lispir/value/list'
 
-    BUILTINS = ['+']
+    BUILTINS = [
+      '+',
+      'begin'
+    ]
 
     class Atom < Abstract
       def evaluate(env = {})
