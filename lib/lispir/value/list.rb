@@ -14,6 +14,9 @@ module Lispir
             ret = expr.evaluate(env)
           end
           ret
+        when 'define'
+          key, value = rest
+          env[key.source] = value.evaluate(env)
         else
           raise "Cannot apply '#{head}'"
         end
