@@ -2,6 +2,7 @@ module Lispir
   module Value
     require 'lispir/value/abstract'
     require 'lispir/value/list'
+    require 'lispir/value/lambda'
 
     BUILTINS = [
       '+',
@@ -9,7 +10,8 @@ module Lispir
       'define',
       'eq',
       'if',
-      'let'
+      'let',
+      'lambda'
     ]
 
     class Atom < Abstract

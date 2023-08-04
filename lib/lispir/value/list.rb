@@ -32,6 +32,11 @@ module Lispir
             local_env[key.source] = value_exp.evaluate(env)
           end
           body.evaluate(local_env)
+        when 'lambda'
+          bindings, body = rest
+          Value::Lambda.new(body, env.dup, bindings)
+        when Value::Lambda
+          head.evaluate rest, env
         else
           raise "Cannot apply '#{head}'"
         end

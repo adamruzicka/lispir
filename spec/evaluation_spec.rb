@@ -89,7 +89,50 @@ module Lispir
         value = Lispir.evaluate_expression(exp)
         expect(value).to eq(3)
       end
+    end
 
+    describe Value::Lambda do
+      it 'gets to an intermediate representation' do
+        env = {'foo' => 5}
+        value = Lispir.evaluate_expression('(lambda (x) (+ x 1))', env)
+        body = Value::List.new([
+                                 Value::Atom.new('+'),
+                                 Value::Atom.new('x'),
+                                 Value::Number.new(1)
+                               ])
+        bindings = Value::List.new([Value::Atom.new('x')])
+        expect(value).to eq(Value::Lambda.new(body, env, bindings))
+      end
+
+      it 'can be evaluated directly' do
+        value = Lispir.evaluate_expression('((lambda (x) (+ x 1)) 1)')
+        expect(value).to eq(2)
+      end
+
+      it 'can be bound with define and evaluated' do
+        exp = <<~EXP
+          (begin
+            (define inc (lambda (x) (+ x 1)))
+            (inc 1))
+        EXP
+        value = Lispir.evaluate_expression(exp)
+        expect(value).to eq(2)
+      end
+
+      it 'can be recursive when bound' do
+        exp = <<~EXP
+          (begin
+            (define upto
+              (lambda (current target)
+                (if (eq current target)
+                    target
+                    (upto (+ 1 current) target))))
+            (upto 0 5))
+        EXP
+
+        value = Lispir.evaluate_expression(exp)
+        expect(value).to eq(5)
+      end
     end
   end
 end
