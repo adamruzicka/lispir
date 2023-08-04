@@ -7,7 +7,7 @@ module Lispir
         @source = source
       end
 
-      def evaluate
+      def evaluate(_)
         @source
       end
 

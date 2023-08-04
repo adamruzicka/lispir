@@ -3,7 +3,17 @@ module Lispir
     require 'lispir/value/abstract'
     require 'lispir/value/list'
 
-    class Atom < Abstract; end
+    BUILTINS = ['+']
+
+    class Atom < Abstract
+      def evaluate(env = {})
+        return @source if BUILTINS.include?(@source)
+
+        raise "Unbound variable '#{source}'" unless env.key?(@source)
+        env[@source]
+      end
+    end
+
     class Number < Abstract; end
   end
 end
