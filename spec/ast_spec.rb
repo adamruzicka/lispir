@@ -2,14 +2,16 @@ module Lispir
   RSpec.describe AST do
     it "converts numbers" do
       ast = AST.new(['12', '1000']).ast
-      expected = [12, 1000].map { |i| Value::Number.new(i) }
+      values = [12, 1000].map { |i| Value::Number.new(i) }
+      expected = Value::List.new(values)
       expect(ast).to eq(expected)
     end
 
     it 'converts atoms' do
       values = %w(hello ast)
       ast = AST.new(values).ast
-      expected = values.map { |s| Value::Atom.new(s) }
+      atoms = values.map { |s| Value::Atom.new(s) }
+      expected = Value::List.new(atoms)
       expect(ast).to eq(expected)
     end
 
@@ -20,7 +22,7 @@ module Lispir
         Value::List.new([Value::List.new([])]),
         Value::List.new([Value::List.new([Value::List.new([])])])
       ]
-      expect(ast).to eq(expected)
+      expect(ast).to eq(Value::List.new(expected))
     end
 
     it 'converts programs' do
@@ -48,7 +50,7 @@ module Lispir
           ])
       ]
 
-      expect(ast).to eq(expected)
+      expect(ast).to eq(Value::List.new(expected))
     end
   end
 end

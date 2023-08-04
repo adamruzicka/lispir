@@ -28,7 +28,7 @@ module Lispir
         end
       end
 
-      ast
+      Value::List.new ast
     end
   end
 end
