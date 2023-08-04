@@ -8,7 +8,8 @@ module Lispir
       'begin',
       'define',
       'eq',
-      'if'
+      'if',
+      'let'
     ]
 
     class Atom < Abstract

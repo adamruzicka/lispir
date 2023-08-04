@@ -72,5 +72,24 @@ module Lispir
         expect(value).to eq(6)
       end
     end
+
+    describe 'let' do
+      it 'binds values in local environment' do
+        value = Lispir.evaluate_expression('(let ((x (+ 3 4))) x)')
+        expect(value).to eq(7)
+      end
+
+      it 'does not modify non-local environment' do
+        exp = <<~EXP
+          (begin
+            (define x 3)
+            (let ((x 1)) x)
+            x)
+        EXP
+        value = Lispir.evaluate_expression(exp)
+        expect(value).to eq(3)
+      end
+
+    end
   end
 end

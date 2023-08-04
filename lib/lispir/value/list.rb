@@ -24,6 +24,14 @@ module Lispir
           condition, truthy, falsey = rest
           branch = condition.evaluate(env) ? truthy : falsey
           branch.evaluate(env)
+        when 'let'
+          pairs, body = rest
+          local_env = env.dup
+          pairs.source.each do |pair|
+            key, value_exp = pair.source
+            local_env[key.source] = value_exp.evaluate(env)
+          end
+          body.evaluate(local_env)
         else
           raise "Cannot apply '#{head}'"
         end
