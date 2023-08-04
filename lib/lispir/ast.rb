@@ -20,7 +20,7 @@ module Lispir
           ast = stack.pop
           ast << Lispir::Value::List.new(completed)
         else
-          if token =~ /^\d+$/
+          if token =~ /^-?\d+$/
             ast << Lispir::Value::Number.new(token.to_i)
           else
             ast << Lispir::Value::Atom.new(token)
