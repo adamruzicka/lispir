@@ -30,5 +30,12 @@ module Lispir
         expect(value).to eq(6)
       end
     end
+
+    describe 'begin' do
+      it 'evaluates all the expressions and returns the value of the last one' do
+        value = Lispir.evaluate_expression('(begin 1 2 (+ 3 4))')
+        expect(value).to eq(7)
+      end
+    end
   end
 end
