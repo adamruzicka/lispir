@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "lispir"
+
+File.open(ARGV.first) do |f|
+  Lispir.evaluate_body f
+end
