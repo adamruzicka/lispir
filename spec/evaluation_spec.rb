@@ -134,5 +134,21 @@ module Lispir
         expect(value).to eq(5)
       end
     end
+
+    describe 'evaluate_body' do
+      it 'does not need explicit begin' do
+        value = Lispir.evaluate_body('1 2 3')
+        expect(value).to eq(3)
+
+        exp = <<~EXP
+          (define inc (lambda (x) (+ x 1)))
+          (define add2 (lambda (x) (inc (inc x))))
+          (add2 1)
+        EXP
+
+        value = Lispir.evaluate_body(exp)
+        expect(value).to eq(3)
+      end
+    end
   end
 end

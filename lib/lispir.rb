@@ -12,4 +12,10 @@ module Lispir
     ast = AST.new(tokens)
     ast.ast.first.evaluate(env)
   end
+
+  def self.evaluate_body(body, env = {})
+    tokens = Tokenizer.tokenize(body)
+    ast = AST.new(tokens)
+    Value::List.new([Value::Atom.new('begin')] + ast.ast).evaluate(env)
+  end
 end
