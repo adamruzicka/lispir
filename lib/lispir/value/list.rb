@@ -20,6 +20,10 @@ module Lispir
         when 'eq'
           a, b = rest.map { |expr| expr.evaluate(env) }
           a == b
+        when 'if'
+          condition, truthy, falsey = rest
+          branch = condition.evaluate(env) ? truthy : falsey
+          branch.evaluate(env)
         else
           raise "Cannot apply '#{head}'"
         end

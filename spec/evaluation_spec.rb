@@ -54,5 +54,23 @@ module Lispir
         expect(value).to eq(true)
       end
     end
+
+    describe 'if' do
+      it 'evaluates the right branch' do
+        value = Lispir.evaluate_expression('(if (eq 1 1) 5 6)')
+        expect(value).to eq(5)
+
+        value = Lispir.evaluate_expression('(if (eq 1 2) 5 6)')
+        expect(value).to eq(6)
+      end
+
+      it 'does not evaluate the other branch' do
+        value = Lispir.evaluate_expression('(if (eq 1 1) 5 unbound)')
+        expect(value).to eq(5)
+
+        value = Lispir.evaluate_expression('(if (eq 1 2) unbound 6)')
+        expect(value).to eq(6)
+      end
+    end
   end
 end
