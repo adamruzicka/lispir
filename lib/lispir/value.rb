@@ -11,7 +11,8 @@ module Lispir
       'eq',
       'if',
       'let',
-      'lambda'
+      'lambda',
+      'print'
     ]
 
     class Atom < Abstract

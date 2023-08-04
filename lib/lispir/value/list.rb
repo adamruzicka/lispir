@@ -37,6 +37,9 @@ module Lispir
           Value::Lambda.new(body, env.dup, bindings)
         when Value::Lambda
           head.evaluate rest, env
+        when 'print'
+          values = rest.map { |exp| exp.evaluate(env) }
+          puts values.join(' ')
         else
           raise "Cannot apply '#{head}'"
         end
