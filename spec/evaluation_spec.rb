@@ -37,5 +37,12 @@ module Lispir
         expect(value).to eq(7)
       end
     end
+
+    describe 'define' do
+      it 'puts a value into the environment' do
+        value = Lispir.evaluate_expression('(begin (define x (+ 3 4)) x)')
+        expect(value).to eq(7)
+      end
+    end
   end
 end
