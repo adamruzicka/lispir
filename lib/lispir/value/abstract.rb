@@ -14,6 +14,10 @@ module Lispir
       def to_s
         evaluate.to_s
       end
+
+      def ==(other)
+        self.source == other.source
+      end
     end
   end
 end
